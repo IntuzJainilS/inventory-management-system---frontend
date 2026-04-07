@@ -44,7 +44,7 @@ export default function Home() {
 
           <div className="flex flex-col items-center text-center group">
             <div className="overflow-hidden rounded-2xl mb-6 shadow-md transition group-hover:shadow-xl">
-              <Image src={img2} alt="Alerts" height={250} width={260} className="object-cover w-auto h-auto" />
+              <Image src={img2} alt="Alerts" height={250} width={260} loading="eager" className="object-cover w-auto h-auto" />
             </div>
             <div className="mt-8">
               <h4 className="text-xl font-bold mb-2">Smart Syncing</h4>

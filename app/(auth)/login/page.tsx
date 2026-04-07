@@ -8,6 +8,7 @@ import Navbar from '@/app/components/Navbar';
 import api from '@/lib/axios';
 import { createSession } from '@/lib/auth';
 import Footer from '@/app/components/footer';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 export default function LoginPage() {
 
@@ -39,8 +40,16 @@ export default function LoginPage() {
             console.log("Session created")
             // window.location.href = "/";
             router.push('/')
-        } catch (error) {
+        } catch (error:any) {
             console.error(error);
+            const errorMessage = error.response?.data?.message || error.message || 'An unexpected error occurred';
+            toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                theme: "light",
+                transition: Bounce,
+            })
         }
     };
 
@@ -104,6 +113,7 @@ export default function LoginPage() {
                     </p>
                 </div>
             </div>
+            <ToastContainer/>
             <Footer/>
         </>
     );

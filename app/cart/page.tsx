@@ -16,10 +16,14 @@ const Cart = () => {
 
     if (cart.length === 0) {
         return (
+            <>
+            <Navbar/>
             <div className="flex flex-col items-center justify-center min-h-screen">
                 <h2 className="text-2xl font-bold mb-4">Your cart is empty</h2>
                 <Link href="/productlist" className="text-blue-600 underline">Go back to products</Link>
             </div>
+            <Footer/>
+            </>
         );
     }
 
@@ -142,6 +146,7 @@ const Cart = () => {
                 </button>
             </div>
         </div>
+        <ToastContainer/>
     <Footer/>
     </>
     )

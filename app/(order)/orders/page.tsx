@@ -153,7 +153,7 @@ const Orders = () => {
                 <div>
                     <table className="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
                         <thead>
-                            <tr>
+                            <tr className='p-4 border border-blue-800 bg-blue-200'>
                                 <th className="p-3 text-center">full_name</th>
                                 <th className="p-3 text-center">Email</th>
                                 <th className="p-3 text-center">Product</th>

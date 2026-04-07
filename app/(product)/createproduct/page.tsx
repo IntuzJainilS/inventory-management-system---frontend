@@ -96,7 +96,7 @@ const CreateProduct = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-1">Reserved</label>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">Reserved (optional)</label>
                             <input
                                 name="reserved"
                                 type='number'
