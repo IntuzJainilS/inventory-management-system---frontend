@@ -8,14 +8,14 @@ import { getSessionData } from '@/lib/auth'
 import api from '@/lib/axios'
 import { checkAdmin } from '@/lib/checkadmin'
 import { useRouter, useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 const Orders = () => {
     const router = useRouter();
-    useEffect(() => {
-        checkAdmin(router)
-    }, [])
+    // useEffect(() => {
+    //     checkAdmin(router)
+    // }, [])
 
     const [orders, setorders] = useState<any>([])
 
@@ -33,36 +33,51 @@ const Orders = () => {
         { label: "Date Created", value: "createdAt" },
     ];
 
-    useEffect(() => {
-        const fetchedOrders = async () => {
-            try {
-                const session = await getSessionData();
-                const token = session?.token;
-                // if (!session || !token) {
-                //     console.log("token not found")
-                //     return
-                // }
-                const res = await api.get('/orders', {
-                    params: { search: searchQuery, page: currentPage, sort_by: sort_by, status: status, order: order, },
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                setorders(res.data)
-                console.log("order fetched successfully", res.data)
-            } catch (error) {
-                console.log("failed to fetch orders", error)
-                toast.error('failed to fetch orders', {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    theme: "light",
-                    transition: Bounce,
-                })
-            }
+    const fetchedOrders = useCallback(async () => {
+        try {
+            const session = await getSessionData();
+            const token = session?.token;
+            const res = await api.get('/orders', {
+                params: { search: searchQuery, page: currentPage, sort_by: sort_by, status: status, order: order },
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            setorders(res.data)
+        } catch (error) {
+            console.log("failed to fetch orders", error)
         }
+    }, [searchQuery, currentPage, sort_by, status, order]);
+
+    useEffect(() => {
+        // const fetchedOrders = async () => {
+        //     try {
+        //         const session = await getSessionData();
+        //         const token = session?.token;
+        //         // if (!session || !token) {
+        //         //     console.log("token not found")
+        //         //     return
+        //         // }
+        //         const res = await api.get('/orders', {
+        //             params: { search: searchQuery, page: currentPage, sort_by: sort_by, status: status, order: order, },
+        //             headers: {
+        //                 Authorization: `Bearer ${token}`
+        //             }
+        //         })
+        //         setorders(res.data)
+        //         console.log("order fetched successfully", res.data)
+        //     } catch (error) {
+        //         console.log("failed to fetch orders", error)
+        //         toast.error('failed to fetch orders', {
+        //             position: "top-right",
+        //             autoClose: 2000,
+        //             hideProgressBar: false,
+        //             theme: "light",
+        //             transition: Bounce,
+        //         })
+        //     }
+        // }
+        checkAdmin(router)
         fetchedOrders();
-    }, [status, searchQuery, currentPage, order])
+    }, [fetchedOrders, router])
 
     const handlePlaceOrder = async (id: string) => {
         try {
@@ -90,6 +105,7 @@ const Orders = () => {
                 theme: "colored",
                 transition: Bounce,
             })
+            fetchedOrders();
         } catch (error: any) {
             console.log("failed to placed order", error)
             const errorMessage = error.response?.data?.message || error.message || 'An unexpected error occurred';
@@ -128,6 +144,7 @@ const Orders = () => {
                 theme: "colored",
                 transition: Bounce,
             })
+            fetchedOrders();
         } catch (error: any) {
             console.log("failed to cancel order", error)
             const errorMessage = error.response?.data?.message || error.message || 'An unexpected error occurred';
@@ -150,7 +167,7 @@ const Orders = () => {
                 </div>
                 <SearchBar />
                 <SortingAndFiltering sortOptions={sortOptions} />
-                <div>
+                <div className='m-2.5'>
                     <table className="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
                         <thead>
                             <tr className='p-4 border border-blue-800 bg-blue-200'>
