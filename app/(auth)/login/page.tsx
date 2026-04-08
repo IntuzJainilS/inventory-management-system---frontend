@@ -50,6 +50,7 @@ export default function LoginPage() {
                 theme: "light",
                 transition: Bounce,
             })
+            return;
         }
     };
 

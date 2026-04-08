@@ -6,10 +6,16 @@ import { useCart } from '@/app/context/CartContext'
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import Footer from '@/app/components/footer'
 import Navbar from '@/app/components/Navbar'
+import { useSearchParams } from 'next/navigation'
+import Pagination from '@/app/components/Pagination'
+import SearchBar from '@/app/components/Searchbar'
 
 
 const GetProduct = () => {
 
+    const searchParams = useSearchParams();
+    const searchQuery = searchParams.get('search') || "";
+    const currentPage = Number(searchParams.get('page')) || 1;
     const [product, setproduct] = useState<any>([])
     const { cart, addToCart, updateQuantity, removeFromCart } = useCart();
 
@@ -32,6 +38,7 @@ const GetProduct = () => {
                 }
 
                 const res = await api.get('/products', {
+                    params:{search: searchQuery, page: currentPage,},
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -50,7 +57,7 @@ const GetProduct = () => {
             }
         }
         fetchData();
-    }, [])
+    }, [searchQuery, currentPage,])
 
     const handleAddToCart = async (product: any) => {
         const session = await getSessionData();
@@ -91,8 +98,9 @@ const GetProduct = () => {
                             Product List
                         </h1>
                     </div>
+                    <SearchBar/>
 
-                    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-2.5'>
                         {product?.data?.map((product: any) => {
                             const availableStock = product.stock_quantity - product.reserved_quantity;
                             const isOutOfStock = availableStock <= 0;
@@ -166,6 +174,7 @@ const GetProduct = () => {
                         })}
                     </div>
                 </div>
+                <Pagination totalPages={product?.pagination?.totalPages || 1}/>
                 <ToastContainer />
             </div>
             <Footer />
