@@ -55,20 +55,20 @@ const Profile = () => {
     return (
         <>
             <Navbar />
-            <div className='min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8'>
+            <div className='min-h-screen bg-linear-to-br from-slate-100 to-blue-200 py-12 px-4 sm:px-6 lg:px-8'>
                 <div className='flex flex-col items-center mb-12'>
                     <h1 className='text-4xl font-extrabold text-gray-900 tracking-tight'>
                         User Profile
                     </h1>
                 </div>
                 {user && (
-                    <div className="mt-4 mb-3 p-4  rounded-lg text-left w-full max-w-2xl">
-                        <p className="text-lg font-semibold text-gray-800">Name:{user.full_name}</p>
-                        <p className="text-gray-500">Email:{user.email}</p>
+                    <div className="mt-4 mb-3 p-4 border bg-gray-300 border-gray-300 rounded-lg text-left w-70">
+                        <p className="text-lg font-semibold text-gray-800">Name: {user.full_name}</p>
+                        <p className="text-gray-500">Email: {user.email}</p>
                     </div>
                 )}
                 <table className="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
-                    <thead>
+                    <thead className='bg-amber-200'>
                         <tr>
                             <th className="p-3 text-center">Product</th>
                             <th className="p-3 text-center">Quentity</th>

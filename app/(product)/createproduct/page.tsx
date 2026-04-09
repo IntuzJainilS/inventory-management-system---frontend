@@ -38,9 +38,10 @@ const CreateProduct = () => {
                 theme: "colored",
                 transition: Bounce,
             })
-        } catch (error) {
+        } catch (error: any) {
             console.log("failed to create product", error)
-            toast.error('failed to create product', {
+             const errorMessage = error.response?.data?.message || error.message || 'An unexpected error occurred';
+            toast.error(errorMessage, {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/axios';
 import Footer from '@/app/components/footer';
+import Navbar from '@/app/components/Navbar';
 
 
 export default function SignupPage() {
@@ -36,7 +37,8 @@ export default function SignupPage() {
 
     return (
         <>
-            <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+        <Navbar/>
+            <div className="min-h-screen flex items-center justify-center bg-gray-300 px-4">
                 <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl">
                     <div className="text-center">
                         <h2 className="text-3xl font-bold text-gray-900">Create an account</h2>

@@ -21,6 +21,7 @@ export default function LoginPage() {
         e.preventDefault();
         console.log("Logging in with:", { email, password });
         try {
+            console.log("request incoming")
             const res = await api.post('/login', {
                 email,
                 password
@@ -57,7 +58,7 @@ export default function LoginPage() {
     return (
         <>
         <Navbar/>
-            <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+            <div className="min-h-screen flex items-center justify-center bg-gray-300 px-4">
                 <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl">
                     <div className="text-center">
                         <h2 className="text-3xl font-bold text-gray-900">Welcome</h2>

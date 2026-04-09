@@ -6,17 +6,17 @@ export async function createSession(token: string, usertype: string, full_name:s
 
   cookieStore.set("session", token, {
     httpOnly: true, // prevents XSS - more secure
-    secure: true,
+    // secure: true,
     sameSite: "lax",
     path: "/",
     maxAge: 60 * 60,
   });
 
-  cookieStore.set("userRole", usertype, { httpOnly: true, secure: true, sameSite: "lax", path: "/" });
+  cookieStore.set("userRole", usertype, { httpOnly: true, secure: false, sameSite: "lax", path: "/" });
 
-  cookieStore.set("full_name", full_name, { httpOnly: true, secure: true, sameSite: "lax", path: "/" })
+  cookieStore.set("full_name", full_name, { httpOnly: true, secure: false, sameSite: "lax", path: "/" })
 
-  cookieStore.set("email", email, { httpOnly: true, secure: true, sameSite: "lax", path: "/" })
+  cookieStore.set("email", email, { httpOnly: true, secure: false, sameSite: "lax", path: "/" })
 }
 
 export async function getSessionData() {

@@ -42,6 +42,7 @@ const Orders = () => {
                 headers: { Authorization: `Bearer ${token}` }
             })
             setorders(res.data)
+            console.log(res.data)
         } catch (error) {
             console.log("failed to fetch orders", error)
         }
@@ -170,7 +171,7 @@ const Orders = () => {
                 <div className='m-2.5'>
                     <table className="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
                         <thead>
-                            <tr className='p-4 border border-blue-800 bg-blue-200'>
+                            <tr className='p-4 bg-blue-200'>
                                 <th className="p-3 text-center">full_name</th>
                                 <th className="p-3 text-center">Email</th>
                                 <th className="p-3 text-center">Product</th>
@@ -219,7 +220,7 @@ const Orders = () => {
                                             <button
                                                 onClick={() => handlePlaceOrder(order.id)}
                                                 disabled={order.status === 'placed' || order.status === 'cancelled' || order.status === 'failed'}
-                                                className={`px-3 py-1 rounded active:scale-95 active:bg-blue-300 text-white text-sm transition ${(order.status === 'placed' || order.status === 'cancelled' || order.status === 'failed')
+                                                className={`px-2 py-1 rounded active:scale-95 active:bg-blue-300 text-white text-sm transition ${(order.status === 'placed' || order.status === 'cancelled' || order.status === 'failed')
                                                     ? 'bg-gray-300 cursor-not-allowed'
                                                     : 'bg-blue-600 hover:bg-blue-700'
                                                     }`}
@@ -230,7 +231,7 @@ const Orders = () => {
                                             <button
                                                 onClick={() => handleCancelOrder(order.id)}
                                                 disabled={order.status === 'cancelled' || order.status === 'failed'}
-                                                className={`px-3 py-1 rounded active:scale-95 active:bg-red-300 text-white text-sm transition ${order.status === 'cancelled' || order.status === 'failed'
+                                                className={`px-2 py-1 rounded active:scale-95 active:bg-red-300 text-white text-sm transition ${order.status === 'cancelled' || order.status === 'failed'
                                                     ? 'bg-gray-300 cursor-not-allowed'
                                                     : 'bg-red-600 hover:bg-red-700'
                                                     }`}

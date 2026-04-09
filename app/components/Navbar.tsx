@@ -12,14 +12,14 @@ const Navbar = () => {
     const { cartCount } = useCart();
     const checkAdmin = async () => {
         const hascookie: any = await getSessionData();
-        console.log("cookies", hascookie)
+        // console.log("cookies", hascookie)
         if (!hascookie) {
             console.log("session not present")
         } else {
             setRole(hascookie.role)
-            console.log(role)
+            // console.log(role)
             const usertype = hascookie.role;
-            console.log("usertype", usertype);
+            // console.log("usertype", usertype);
         }
     }
     useEffect(() => {
