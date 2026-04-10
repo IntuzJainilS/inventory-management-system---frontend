@@ -1,5 +1,5 @@
 "use client"
-import { createContext, useContext, useState, ReactNode } from "react"
+import { createContext, useContext, useState, ReactNode, useEffect } from "react"
 
 interface CartItem {
     id: string;
@@ -23,6 +23,19 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
     const [cart, setCart] = useState<CartItem[]>([]);
+
+    // 1. Load cart from LocalStorage on mount
+    useEffect(() => {
+        const savedCart = localStorage.getItem("cart");
+        if (savedCart) {
+            setCart(JSON.parse(savedCart));
+        }
+    }, []);
+
+    // 2. Sync cart to LocalStorage whenever it changes
+    useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }, [cart]);
 
     const addToCart = (product: any) => {
         const available = product.stock_quantity - (product.reserved_quantity || 0);
@@ -75,6 +88,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     const clearCart = () => {
         setCart([]);
+        localStorage.removeItem("cart");
     };
 
     // const cartCount = cart.reduce((total, item) => total + item.quantity, 0);

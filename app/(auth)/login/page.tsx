@@ -42,7 +42,7 @@ export default function LoginPage() {
             // window.location.href = "/";
             router.push('/')
         } catch (error:any) {
-            console.error(error);
+            // console.error(error);
             const errorMessage = error.response?.data?.message || error.message || 'An unexpected error occurred';
             toast.error(errorMessage, {
                 position: "top-right",
@@ -51,7 +51,6 @@ export default function LoginPage() {
                 theme: "light",
                 transition: Bounce,
             })
-            return;
         }
     };
 

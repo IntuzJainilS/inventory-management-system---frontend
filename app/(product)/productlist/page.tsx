@@ -124,7 +124,7 @@ const GetProduct = () => {
 
                                         <div className='space-y-1 mb-6'>
                                             <p className='text-2xl font-black text-gray-700'>
-                                                {product.price}
+                                                Rs.{product.price}
                                             </p>
                                             <div className='text-sm text-gray-500 flex flex-col gap-1 pt-2 border-t border-gray-50'>
                                                 <div className='flex justify-between'>

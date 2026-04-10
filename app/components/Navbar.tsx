@@ -45,6 +45,7 @@ const Navbar = () => {
                         <>
                             <Link href="/createproduct" className="hover:text-blue-600 transition-colors">Create Product</Link>
                             <Link href="/orders" className="hover:text-blue-600 transition-colors">Orders</Link>
+                             <Link href="/updateproduct" className="hover:text-blue-600 transition-colors">Update Product</Link>
                         </>
                     )}
 
