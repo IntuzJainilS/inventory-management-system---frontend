@@ -32,7 +32,7 @@ export default function LoginPage() {
             // const usertype = res.data.usertype
             // const email = res.data.email
             // const full_name = res.data.name
-            const { token, usertype, full_name } = res.data; 
+            const { token, usertype, full_name } = res.data;
             // console.log("token-",token)
             // console.log("usertype-",usertype)
 
@@ -41,7 +41,7 @@ export default function LoginPage() {
             console.log("Session created")
             // window.location.href = "/";
             router.push('/')
-        } catch (error:any) {
+        } catch (error: any) {
             // console.error(error);
             const errorMessage = error.response?.data?.message || error.message || 'An unexpected error occurred';
             toast.error(errorMessage, {
@@ -55,9 +55,9 @@ export default function LoginPage() {
     };
 
     return (
-        <>
-        <Navbar/>
-            <div className="min-h-screen flex items-center justify-center bg-gray-300 px-4">
+        <div className='flex flex-col h-screen overflow-hidden'>
+            <Navbar />
+            <div className="grow flex items-center justify-center bg-gray-300 px-4">
                 <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl">
                     <div className="text-center">
                         <h2 className="text-3xl font-bold text-gray-900">Welcome</h2>
@@ -114,8 +114,8 @@ export default function LoginPage() {
                     </p>
                 </div>
             </div>
-            <ToastContainer/>
-            <Footer/>
-        </>
+            <ToastContainer />
+            <Footer />
+        </div>
     );
 }

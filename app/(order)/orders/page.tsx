@@ -175,7 +175,7 @@ const Orders = () => {
                                 <th className="p-3 text-center">full_name</th>
                                 <th className="p-3 text-center">Email</th>
                                 <th className="p-3 text-center">Product</th>
-                                <th className="p-3 text-center">Quentity</th>
+                                <th className="p-3 text-center">Quantity</th>
                                 <th className="p-3 text-center">Price (at Purchase)</th>
                                 <th className="p-3 text-center">Total Order Amount</th>
                                 <th className="p-3 text-center">Status</th>

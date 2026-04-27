@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import api from '@/lib/axios';
 import Footer from '@/app/components/footer';
 import Navbar from '@/app/components/Navbar';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { createSession } from '@/lib/auth';
 
 
 export default function SignupPage() {
@@ -26,19 +28,30 @@ export default function SignupPage() {
                 password,
             })
             console.log('User Registered successful:', response);
+            // const { token, usertype, full_name:name } = response.data;
+            // await createSession(token, usertype, name, email);
+            // console.log("Session created")
             // window.location.href = "/login";
             router.push('/login')
 
-        } catch (error) {
-            console.error("Signup error:", error);
+        } catch (error: any) {
+            // console.error("Signup error:", error);
             seterror('Signup error')
+            const errorMessage = error.response?.data?.message || error.message || 'An unexpected error occurred';
+            toast.error(errorMessage, {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                theme: "light",
+                transition: Bounce,
+            })
         }
     };
 
     return (
-        <>
+        <div className='flex flex-col h-screen overflow-hidden'>
         <Navbar/>
-            <div className="min-h-screen flex items-center justify-center bg-gray-300 px-4">
+            <div className="grow flex items-center justify-center bg-gray-300 px-4">
                 <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl">
                     <div className="text-center">
                         <h2 className="text-3xl font-bold text-gray-900">Create an account</h2>
@@ -93,7 +106,8 @@ export default function SignupPage() {
                     </p>
                 </div>
             </div>
+            <ToastContainer/>
             <Footer/>
-        </>
+        </div>
     );
 }

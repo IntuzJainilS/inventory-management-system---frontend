@@ -75,6 +75,39 @@ const UpdateProduct = () => {
     const handleUpdateSuccess = () => {
         fetchData()
     }
+
+    const handleDelete = async (id: string) => {
+        try {
+            const adminconfirmation = confirm("Are you sure you want to delete this product ?")
+            if (adminconfirmation) {
+                const session = await getSessionData();
+                const token = session?.token;
+                const res = await api.delete(`/product/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                toast.success('product deleted successfully', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    theme: "light",
+                    transition: Bounce,
+                })
+                console.log("product deleted successfully", res)
+            }
+            router.refresh();
+        } catch (error) {
+            console.log("Error deleting product", error)
+            toast.error('failed to delete product', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                theme: "light",
+                transition: Bounce,
+            })
+        }
+    }
     return (
         <>
             <Navbar />
@@ -108,8 +141,9 @@ const UpdateProduct = () => {
                                     <td className='p-3 text-center'>{product.reserved_quantity}</td>
                                     <td className='p-3 text-center'>{availableStock}</td>
                                     <td className='p-3 text-center'>{product.createdAt}</td>
-                                    <td className='p-3 text-center'>
+                                    <td className='p-3 flex justify-center items-center gap-3'>
                                         <button onClick={() => handleUpdate(product)} className='px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-700 transition-colors'>Update</button>
+                                        <button onClick={() => handleDelete(product.id)} className='px-4 py-2 text-sm font-medium text-white  bg-red-600 rounded-md hover:bg-red-700 transition-colors'>Delete</button>
                                     </td>
                                 </tr>
                             )
